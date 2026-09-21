@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>متجر النصر – ضاحية المجد</title>
+<style>
+:root{
+  --navy:#1a1a2e; --navy2:#16213e; --navy3:#0f3460;
+  --gold:#D4AF37; --gold2:#AA7C11;
+  --bg:#f0f2f5; --line:#e6e8ee; --muted:#6b7280; --wa:#25D366;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic",system-ui,sans-serif;background:var(--bg);color:var(--navy);line-height:1.6}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+img{max-width:100%;display:block}
+a{color:inherit}
+.hdr{position:sticky;top:0;z-index:60;background:linear-gradient(135deg,var(--navy),var(--navy2) 60%,var(--navy3));box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.hdr-in{max-width:1200px;margin:auto;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;min-width:0}
+.logo{width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font-weight:800;font-size:13px}
+.brand b{display:block;color:#fff;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;color:var(--gold);font-size:11px;opacity:.9}
+.hdr-btns{display:flex;align-items:center;gap:8px}
+.btn-cart{position:relative;border:0;cursor:pointer;padding:9px 14px;border-radius:12px;font-weight:700;font-size:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;white-space:nowrap}
+.btn-cart:active{transform:scale(.96)}
+.badge{position:absolute;top:-6px;left:-6px;background:#ef4444;color:#fff;font-size:10px;font-style:normal;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;font-weight:700}
+.btn-ghost{border:1px solid rgba(212,175,55,.6);background:transparent;color:var(--gold);cursor:pointer;padding:8px 12px;border-radius:12px;font-size:12px;font-weight:600;white-space:nowrap}
+.btn-ghost:active{background:rgba(212,175,55,.12)}
+.hero{position:relative;overflow:hidden;text-align:center;color:#fff;padding:40px 16px;background:linear-gradient(135deg,var(--navy),var(--navy2) 50%,var(--navy3))}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:var(--gold);opacity:.10}
+.hero::before{width:240px;height:240px;top:-90px;right:-70px}
+.hero::after{width:180px;height:180px;bottom:-80px;left:-60px}
+.hero>*{position:relative;z-index:2}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 15px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(212,175,55,.18);color:var(--gold);border:1px solid rgba(212,175,55,.4)}
+.dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.hero h1{font-size:clamp(20px,4.6vw,34px);margin:14px 0 8px;font-weight:800}
+.addr{font-size:clamp(14px,3.2vw,17px);color:var(--gold);font-weight:700;margin-bottom:6px}
+.sub{font-size:13px;opacity:.65}
+.badges{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px;font-size:12px}
+.badges span{padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
+.filters{position:sticky;top:60px;z-index:50;background:#fff;box-shadow:0 3px 14px rgba(0,0,0,.06);padding:11px 14px}
+.filters-in{max-width:1200px;margin:auto}
+.search{position:relative;margin-bottom:9px}
+.search span{position:absolute;right:12px;top:50%;transform:translateY(-50%);opacity:.5;font-size:15px}
+.search input{width:100%;padding:11px 38px 11px 14px;border-radius:12px;border:1px solid var(--line);outline:none;font-size:14px;background:#fafbfd}
+.search input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:0;cursor:pointer;flex:0 0 auto;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;background:var(--bg);color:#555;transition:.2s}
+.chip.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 3px 10px rgba(212,175,55,.4)}
+.wrap{max-width:1200px;margin:auto;padding:20px 14px 40px}
+.bar{display:flex;align-items:center;gap:7px;font-size:13px;color:#666;margin-bottom:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}
+.card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 2px 10px rgba(16,24,60,.05);transition:.25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(16,24,60,.12);border-color:rgba(212,175,55,.5)}
+.thumb{position:relative;aspect-ratio:4/5;background:#f6f7fa;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.card:hover .thumb img{transform:scale(1.06)}
+.cat{position:absolute;top:8px;right:8px;background:rgba(26,26,46,.85);color:var(--gold);font-size:10px;font-weight:700;padding:4px 9px;border-radius:999px;backdrop-filter:blur(4px)}
+.card .body{padding:11px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card h3{font-size:13.5px;font-weight:700;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{font-size:11.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font-size:15px;font-weight:800;color:var(--gold2)}
+.gold{border:0;cursor:pointer;border-radius:11px;font-weight:700;font-size:13px;padding:10px 14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff}
+.gold:active{transform:scale(.97)}
+.gold.full{width:100%;margin-top:auto}
+.soft{border:0;cursor:pointer;border-radius:11px;font-weight:700;font-size:13px;padding:10px 14px;background:var(--bg);color:#555}
+.soft.full{width:100%}
+.row2{display:flex;gap:7px}
+.icon-btn{border:0;cursor:pointer;border-radius:10px;padding:8px 10px;font-size:13px;background:var(--bg)}
+.icon-btn.danger{background:#fee2e2;color:#b91c1c}
+.empty{text-align:center;padding:60px 18px}
+.empty .ic{width:88px;height:88px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;font-size:36px;background:linear-gradient(135deg,#eceef4,#e2e5ee)}
+.empty h3{font-size:19px;font-weight:800;margin-bottom:6px}
+.empty p{color:var(--muted);font-size:13px;max-width:330px;margin:0 auto 20px}
+.wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;text-decoration:none;padding:11px 22px;border-radius:12px;font-weight:700;font-size:13.5px}
+.page{max-width:1100px;margin:auto;padding:22px 14px 50px}
+.page h2.title{font-size:clamp(19px,4vw,26px);font-weight:800;margin-bottom:18px}
+.layout{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:900px){.layout{grid-template-columns:1.6fr 1fr;align-items:start}}
+.citem{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;gap:12px;margin-bottom:10px}
+.citem img{width:74px;height:92px;object-fit:cover;border-radius:12px;flex:0 0 74px;background:#f6f7fa}
+.citem .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.citem h4{font-size:13.5px;font-weight:700}
+.qty{display:flex;align-items:center;gap:8px;margin-top:auto}
+.qbtn{width:28px;height:28px;border:0;border-radius:9px;cursor:pointer;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-size:15px}
+.qbtn.minus{background:#e6e8ee;color:#555}
+.qbox{min-width:26px;text-align:center;font-weight:700;font-size:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.panel h3{font-size:16px;font-weight:800;margin-bottom:14px}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;outline:none;background:#fafbfd}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);background:#fff}
+.field textarea{resize:vertical;min-height:62px}
+.note{border-radius:12px;padding:11px 13px;font-size:12.5px;margin-bottom:10px}
+.note.gray{background:#f8f8f8;border:1px solid var(--line)}
+.note.yellow{background:#fff8e1;border:1px solid #ffe082;color:#8a6d00}
+.note b{display:block;margin-bottom:3px}
+.total{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:1px solid var(--line);font-weight:800;font-size:17px;margin-top:8px}
+.total .v{color:var(--gold2)}
+.btn-wa{width:100%;border:0;cursor:pointer;background:var(--wa);color:#fff;font-weight:800;font-size:14px;padding:14px;border-radius:13px;margin-top:10px}
+.btn-wa:active{transform:scale(.98)}
+.sticky{position:sticky;top:78px}
+.done{min-height:70vh;display:grid;place-items:center;padding:30px 16px;text-align:center}
+.done .box{background:#fff;border-radius:24px;padding:38px 26px;max-width:380px;width:100%;box-shadow:0 20px 50px rgba(16,24,60,.12)}
+.done .tick{font-size:52px;margin-bottom:10px}
+.done h2{font-size:21px;font-weight:800;margin-bottom:8px}
+.done p{color:var(--muted);font-size:13.5px;margin-bottom:22px}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:5px;margin-bottom:18px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;cursor:pointer;flex:0 0 auto;padding:10px 16px;border-radius:12px;font-size:13px;font-weight:700;background:#fff;color:#555;border:1px solid var(--line)}
+.tab.on{background:linear-gradient(135deg,var(--navy),var(--navy3));color:#fff;border-color:transparent}
+.stats{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:20px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}
+.stat .n{font-size:24px;font-weight:800;color:var(--gold2)}
+.stat .l{font-size:12px;color:var(--muted)}
+.list-row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;gap:11px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
+.list-row img{width:52px;height:64px;object-fit:cover;border-radius:10px;flex:0 0 52px;background:#f6f7fa}
+.list-row .grow{flex:1;min-width:150px}
+.list-row strong{font-size:13.5px;display:block}
+.list-row small{font-size:11.5px;color:var(--muted)}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--bg);color:#555}
+.tag.gold{background:rgba(212,175,55,.16);color:var(--gold2)}
+.tag.green{background:#dcfce7;color:#15803d}
+.tag.red{background:#fee2e2;color:#b91c1c}
+.tag.blue{background:#dbeafe;color:#1d4ed8}
+.overlay{position:fixed;inset:0;background:rgba(12,16,32,.6);z-index:100;display:flex;align-items:flex-end;justify-content:center;padding:0;backdrop-filter:blur(3px)}
+@media(min-width:640px){.overlay{align-items:center;padding:20px}}
+.modal{background:#fff;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0}
+@media(min-width:640px){.modal{border-radius:22px}}
+.modal-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:15px 18px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.modal-head h3{font-size:16px;font-weight:800}
+.close{border:0;background:var(--bg);cursor:pointer;width:32px;height:32px;border-radius:10px;font-size:17px;line-height:1}
+.modal-body{padding:18px}
+.imgtabs{display:flex;gap:7px;margin-bottom:11px}
+.imgtab{flex:1;border:1px solid var(--line);background:#fff;cursor:pointer;padding:9px;border-radius:11px;font-size:12.5px;font-weight:700;color:#555}
+.imgtab.on{background:rgba(212,175,55,.12);border-color:var(--gold);color:var(--gold2)}
+.drop{border:2px dashed #cfd4e0;border-radius:16px;padding:26px 16px;text-align:center;cursor:pointer;background:#fafbfd;transition:.2s}
+.drop.over{border-color:var(--gold);background:rgba(212,175,55,.08)}
+.drop .big{font-size:32px;margin-bottom:7px}
+.drop p{font-size:12.5px;color:var(--muted)}
+.preview{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.preview img{width:100%;max-height:270px;object-fit:cover}
+.preview .acts{position:absolute;bottom:9px;left:9px;display:flex;gap:7px}
+.preview .acts button{border:0;cursor:pointer;padding:7px 12px;border-radius:10px;font-size:12px;font-weight:700;background:rgba(255,255,255,.94);color:var(--navy)}
+.preview .acts button.del{background:#ef4444;color:#fff}
+.checks{display:flex;flex-wrap:wrap;gap:11px;margin-top:6px}
+.checks label{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;cursor:pointer}
+.checks input{width:17px;height:17px;accent-color:var(--gold)}
+.hint{font-size:11.5px;color:var(--muted);margin-top:7px}
+footer{margin-top:30px;padding:22px 14px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);background:#fff}
+footer b{color:var(--navy)}
+.fab{position:fixed;bottom:18px;left:18px;z-index:55;width:56px;height:56px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 26px rgba(37,211,102,.45);text-decoration:none;transition:.25s}
+.fab:hover{transform:scale(1.08)}
+.toast{position:fixed;bottom:22px;right:50%;transform:translateX(50%);z-index:200;background:var(--navy);color:#fff;padding:12px 22px;border-radius:13px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.3s}
+.toast.on{opacity:1;transform:translateX(50%) translateY(-6px)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal-root"></div>
+<div class="toast" id="toast"></div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const auth = getAuth(app);
+
+const KEY = 'nasr-store-v1';
+
+const defaultSettings = {
+  storeName: 'متجر النصر',
+  address: 'ضاحية المجد جانب جامع',
+  whatsapp: '963999999999',
+  shamcashNumber: '0999999999',
+  shamcashName: 'متجر النصر'
+};
+
+const defaultAdmins = [
+  { id: 'owner-default', name: 'المالك', email: 'owner@yourstore.com', role: 'owner', canAdd: true, canDelete: true, canOrders: true, canAdmins: true }
+];
+
+const CATS = [
+  {v:'all', l:'الكل', i:'🛍️'},
+  {v:'clothing', l:'ملابس', i:'👕'},
+  {v:'accessories', l:'إكسسوارات', i:'💍'},
+  {v:'shoes', l:'أحذية', i:'👟'},
+  {v:'bags', l:'حقائب', i:'👜'},
+  {v:'other', l:'أخرى', i:'✨'}
+];
+
+const ST = { pending:['⏳ قيد الانتظار','gold'], confirmed:['✅ مؤكد','blue'], delivered:['📦 تم التسليم','green'], cancelled:['❌ ملغي','red'] };
+
+let S = { settings: defaultSettings, admins: defaultAdmins, products: [], orders: [], cart: [] };
+let session = null;
+let view = 'home';
+let cat = 'all';
+let q = '';
+let tab = 'products';
+let editing = null;
+let formImg = '';
+let imgTabUpload = true;
+let lastView = '';
+let firebaseReady = false;
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const money = n => new Intl.NumberFormat('ar-SY').format(n || 0) + ' ل.س';
+const ph = n => 'https://placehold.co/400x500/1a1a2e/D4AF37?text=' + encodeURIComponent(n || 'منتج');
+const uid = p => p + '-' + Date.now() + '-' + Math.floor(Math.random()*1000);
+const catLabel = v => (CATS.find(c => c.v === v) || {l:'أخرى'}).l;
+const cartTotal = () => S.cart.reduce((s, i) => s + i.price * i.qty, 0);
+const cartCount = () => S.cart.reduce((s, i) => s + i.qty, 0);
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  if(!t) return;
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(()=> t.classList.remove('on'), 1900);
+}
+
+function render(){
+  if(view !== lastView){ window.scrollTo({top:0,behavior:'instant'}); lastView = view; }
+  document.getElementById('app').innerHTML = header() + (view === 'home' ? homeView() : view === 'cart' ? cartView() : view === 'admin' ? adminView() : doneView()) + footer() + fab();
+}
+
+function header(){
+  const c = cartCount();
+  return `<header class="hdr"><div class="hdr-in">
+    <div class="brand" onclick="go('home')">
+      <div class="logo">النصر</div>
+      <div style="min-width:0">
+        <b>${esc(S.settings.storeName)}</b>
+        <small>📍 ${esc(S.settings.address)}</small>
+      </div>
+    </div>
+    <div class="hdr-btns">
+      <button class="btn-cart" onclick="go('cart')">🛒 السلة ${c ? `<i class="badge">${c}</i>` : ''}</button>
+      <button class="btn-ghost" onclick="openAdmin()">${session ? 'لوحة التحكم' : 'دخول المسؤول'}</button>
+    </div>
+  </div></header>`;
+}
+
+function homeView(){
+  return `
+  <section class="hero">
+    <div class="pill"><span class="dot"></span>${esc(S.settings.storeName)} – ضاحية المجد</div>
+    <h1>أحدث الموضة بأفضل الأسعار</h1>
+    <p class="addr">📍 ${esc(S.settings.address)}</p>
+    <p class="sub">ملابس وإكسسوارات راقية • الدفع عبر شام كاش</p>
+    <div class="badges">
+      <span>✅ جودة عالية</span>
+      <span>📍 ${esc(S.settings.address)}</span>
+      <span>💳 شام كاش</span>
+      <span>📱 واتساب</span>
+    </div>
+  </section>
+  <div class="filters"><div class="filters-in">
+    <div class="search">
+      <span>🔍</span>
+      <input id="qInput" type="text" placeholder="ابحث عن منتج..." value="${esc(q)}" oninput="onSearch(this.value)">
+    </div>
+    <div class="chips">
+      ${CATS.map(c=>`<button class="chip ${cat===c.v?'on':''}" data-v="${c.v}" onclick="setCat('${c.v}')">${c.i} ${c.l}</button>`).join('')}
+    </div>
+  </div></div>
+  <main class="wrap" id="grid-area">${gridHTML()}</main>`;
+}
+
+function filtered(){
+  return S.products.filter(p => p.inStock && (cat === 'all' || p.cat === cat) && (!q || (p.name || '').toLowerCase().includes(q.toLowerCase()) || (p.desc || '').toLowerCase().includes(q.toLowerCase())));
+}
+
+function gridHTML(){
+  const list = filtered();
+  if(S.products.length === 0){
+    return `<div class="empty"><div class="ic">🛍️</div><h3>المتجر جاهز ✨</h3><p>لم تُضف منتجات بعد. سجّل الدخول كمسؤول وأضف منتجاتك.</p><a class="wa" href="https://wa.me/${esc(S.settings.whatsapp)}" target="_blank" rel="noopener">تواصل معنا عبر واتساب</a></div>`;
+  }
+  if(list.length === 0){
+    return `<div class="empty"><div class="ic">🔍</div><h3>لا توجد نتائج</h3><p>جرّب كلمات بحث مختلفة أو اختر فئة أخرى.</p><button class="gold" onclick="resetFilters()">عرض كل المنتجات</button></div>`;
+  }
+  return `<div class="bar"><span>📦 <b style="color:#0f3460">${list.length}</b> منتج متاح</span></div><div class="grid">${list.map(cardHTML).join('')}</div>`;
+}
+
+function cardHTML(p){
+  return `<article class="card"><div class="thumb"><img src="${esc(p.img || ph(p.name))}" alt="${esc(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='${ph(p.name)}'"><span class="cat">${catLabel(p.cat)}</span></div><div class="body"><h3>${esc(p.name)}</h3>${p.desc ? `<p>${esc(p.desc)}</p>` : ''}<div class="price">${money(p.price)}</div><button class="gold full" onclick="addCart('${p.id}')">🛒 أضف إلى السلة</button></div></article>`;
+}
+
+function renderGrid(){ const el = document.getElementById('grid-area'); if(el) el.innerHTML = gridHTML(); }
+function onSearch(v){ q = v; renderGrid(); }
+function setCat(v){ cat = v; document.querySelectorAll('.chip').forEach(b => b.classList.toggle('on', b.dataset.v === v)); renderGrid(); }
+function resetFilters(){ cat = 'all'; q = ''; const i = document.getElementById('qInput'); if(i) i.value = ''; document.querySelectorAll('.chip').forEach(b => b.classList.toggle('on', b.dataset.v === 'all')); renderGrid(); }
+
+function addCart(id){
+  const p = S.products.find(x => x.id === id);
+  if(!p) return;
+  const it = S.cart.find(x => x.id === id);
+  if(it) it.qty++; else S.cart.push({ id: p.id, name: p.name, price: p.price, img: p.img, cat: p.cat, qty: 1 });
+  saveLocal(); render(); toast('تمت الإضافة إلى السلة ✓');
+}
+
+function setQty(id, d){
+  const it = S.cart.find(x => x.id === id); if(!it) return;
+  it.qty += d;
+  if(it.qty <= 0) S.cart = S.cart.filter(x => x.id !== id);
+  saveLocal(); render();
+}
+
+function delCart(id){ S.cart = S.cart.filter(x => x.id !== id); saveLocal(); render(); }
+
+function saveLocal(){
+  try { localStorage.setItem(KEY, JSON.stringify({ ...S, products: S.products, orders: S.orders, settings: S.settings, cart: S.cart })); } catch (e) {}
+}
+
+function cartView(){
+  if(S.cart.length === 0){
+    return `<div class="wrap"><div class="empty"><div class="ic">🛒</div><h3>السلة فارغة</h3><p>أضف منتجات لإتمام طلبك.</p><button class="gold" onclick="go('home')">تصفح المنتجات</button></div></div>`;
+  }
+  const items = S.cart.map(i => `
+    <div class="citem">
+      <img src="${esc(i.img || ph(i.name))}" alt="${esc(i.name)}" onerror="this.onerror=null;this.src='${ph(i.name)}'">
+      <div class="info">
+        <h4>${esc(i.name)}</h4>
+        <div class="price" style="font-size:14px">${money(i.price * i.qty)}</div>
+        <div class="qty">
+          <button class="qbtn" onclick="setQty('${i.id}',1)">+</button>
+          <span class="qbox">${i.qty}</span>
+          <button class="qbtn minus" onclick="setQty('${i.id}',-1)">−</button>
+          <button class="icon-btn danger" style="margin-right:auto" onclick="delCart('${i.id}')">🗑</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  return `<div class="page"><h2 class="title">🛒 سلة التسوق</h2><div class="layout"><div>${items}</div><div class="sticky"><div class="panel"><h3>إتمام الطلب</h3><div class="field"><label>الاسم الكامل *</label><input id="cName" type="text" placeholder="اكتب اسمك"></div><div class="field"><label>رقم الهاتف *</label><input id="cPhone" type="tel" placeholder="09xxxxxxxx"></div><div class="field"><label>ملاحظات (اختياري)</label><textarea id="cNotes" placeholder="أي تفاصيل إضافية"></textarea></div><div class="note gray"><b>📍 عنوان المتجر</b>${esc(S.settings.address)}</div><div class="note yellow"><b>💳 الدفع عبر شام كاش</b>رقم الحساب: <strong>${esc(S.settings.shamcashNumber)}</strong><br> الاسم: <strong>${esc(S.settings.shamcashName)}</strong></div><div class="total"><span>المجموع</span><span class="v">${money(cartTotal())}</span></div><button class="btn-wa" onclick="sendOrder()">إرسال الطلب عبر واتساب</button><button class="soft full" style="margin-top:8px" onclick="go('home')">متابعة التسوق</button></div></div></div></div>`;
+}
+
+function sendOrder(){
+  const name = (document.getElementById('cName').value || '').trim();
+  const phone = (document.getElementById('cPhone').value || '').trim();
+  const notes = (document.getElementById('cNotes').value || '').trim();
+  if(!name || !phone){ alert('يرجى إدخال الاسم ورقم الهاتف'); return; }
+
+  const lines = S.cart.map(i => `• ${i.name} (${i.qty}) = ${money(i.price * i.qty)}`).join('\n');
+  const msg = `🛍️ *طلب جديد – ${S.settings.storeName}*\n\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n📍 العنوان: ${S.settings.address}\n\n📦 المنتجات:\n${lines}\n\n💰 المجموع: *${money(cartTotal())}*\n💳 الدفع: شام كاش\n📝 ملاحظات: ${notes || 'لا يوجد'}`;
+
+  window.open('https://wa.me/' + S.settings.whatsapp + '?text=' + encodeURIComponent(msg), '_blank');
+
+  const order = {
+    id: uid('ord'),
+    items: S.cart.map(i => ({...i})),
+    total: cartTotal(),
+    name,
+    phone,
+    notes,
+    address: S.settings.address,
+    status: 'pending',
+    at: new Date().toISOString()
+  };
+
+  if(firebaseReady){
+    addDoc(collection(db, 'orders'), { ...order, createdAt: serverTimestamp() }).catch(()=>{});
+  } else {
+    S.orders.unshift(order);
+  }
+
+  S.cart = [];
+  saveLocal();
+  go('done');
+}
+
+function doneView(){
+  return `<div class="done"><div class="box"><div class="tick">🎉</div><h2>تم إرسال الطلب!</h2><p>سيتواصل معك فريقنا قريباً عبر واتساب لتأكيد الطلب.</p><button class="gold full" onclick="go('home')">العودة للمتجر</button></div></div>`;
+}
+
+function openAdmin(){
+  if(session){ tab = 'products'; go('admin'); }
+  else { view = 'admin'; render(); }
+}
+
+function loginView(){
+  return `<div class="page" style="max-width:430px"><div class="panel" style="margin-top:26px"><h3 style="text-align:center">🔐 دخول المسؤولين</h3><p style="font-size:12.5px;color:#6b7280;text-align:center;margin-bottom:16px">أدخل بريدك الإلكتروني وكلمة المرور للوصول إلى لوحة التحكم</p><div class="field"><label>البريد الإلكتروني</label><input id="emailInput" type="email" placeholder="admin@store.com"></div><div class="field"><label>كلمة المرور</label><input id="passInput" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div><button class="gold full" onclick="doLogin()">دخول</button><button class="soft full" style="margin-top:8px" onclick="go('home')">رجوع للمتجر</button><p class="hint" style="text-align:center">أنشئ حساب مسؤول أولاً عبر Firebase Authentication ثم أضف ملفه في Firestore داخل collection admins</p></div></div>`;
+}
+
+async function doLogin(){
+  const email = (document.getElementById('emailInput').value || '').trim();
+  const password = (document.getElementById('passInput').value || '').trim();
+  if(!email || !password){ alert('يرجى إدخال البريد الإلكتروني وكلمة المرور'); return; }
+  try{
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+    const snap = await getDoc(doc(db, 'admins', user.uid));
+    if(!snap.exists()){
+      await signOut(auth);
+      alert('هذا الحساب ليس مسؤولاً في المتجر. أضف حسابه داخل Firestore collection admins');
+      return;
+    }
+    const admin = snap.data();
+    session = { uid: user.uid, name: admin.name || user.email, email: user.email, ...admin };
+    tab = 'products';
+    go('admin');
+    toast('مرحباً ' + session.name);
+  }catch(err){
+    console.error(err);
+    alert('بيانات الدخول غير صحيحة أو الحساب غير مسجل في Firebase');
+  }
+}
+
+function logout(){
+  if(auth && auth.currentUser){ signOut(auth).catch(()=>{}); }
+  session = null; go('home');
+}
+
+function adminView(){
+  if(!session) return loginView();
+  const tabs = [['products','📦 المنتجات'], ['orders','🛒 الطلبات']];
+  if(session.canAdmins) tabs.push(['admins','👥 المسؤولون'], ['settings','⚙️ الإعدادات']);
+  if(!tabs.some(t => t[0] === tab)) tab = 'products';
+  const pending = S.orders.filter(o => o.status === 'pending').length;
+  return `<div class="page"><h2 class="title">لوحة التحكم <span class="tag gold" style="vertical-align:middle;margin-right:8px">${session.role === 'owner' ? 'المالك' : 'مسؤول'} • ${esc(session.name)}</span></h2><div class="stats"><div class="stat"><div class="n">${S.products.length}</div><div class="l">📦 المنتجات</div></div><div class="stat"><div class="n">${S.orders.length}</div><div class="l">🛒 الطلبات</div></div><div class="stat"><div class="n">${pending}</div><div class="l">⏳ قيد الانتظار</div></div><div class="stat"><div class="n">${S.admins.length}</div><div class="l">👥 المسؤولون</div></div></div><div class="tabs">${tabs.map(([v,l]) => `<button class="tab ${tab===v?'on':''}" onclick="setTab('${v}')">${l}</button>`).join('')}<button class="tab" style="background:#fee2e2;color:#b91c1c;border-color:#fecaca" onclick="logout()">خروج</button></div>${tab === 'products' ? tabProducts() : tab === 'orders' ? tabOrders() : tab === 'admins' ? tabAdmins() : tabSettings()}</div>`;
+}
+
+function setTab(v){ tab = v; render(); }
+
+function tabProducts(){
+  const rows = S.products.map(p => `
+    <div class="list-row">
+      <img src="${esc(p.img || ph(p.name))}" alt="${esc(p.name)}" onerror="this.onerror=null;this.src='${ph(p.name)}'">
+      <div class="grow">
+        <strong>${esc(p.name)}</strong>
+        <small>${money(p.price)} • ${catLabel(p.cat)}</small>
+        <div style="margin-top:4px"><span class="tag ${p.inStock?'green':'red'}">${p.inStock?'متوفر':'غير متوفر'}</span></div>
+      </div>
+      <div class="row2">
+        <button class="icon-btn" onclick="openProduct('${p.id}')">✏️ تعديل</button>
+        ${session.canDelete ? `<button class="icon-btn danger" onclick="delProduct('${p.id}')">🗑 حذف</button>` : ''}
+      </div>
+    </div>`).join('');
+
+  return `${session.canAdd ? `<button class="gold" style="margin-bottom:14px" onclick="openProduct()">＋ إضافة منتج جديد</button>` : ''}${S.products.length === 0 ? `<div class="empty"><div class="ic">📦</div><h3>لا توجد منتجات</h3><p>ابدأ بإضافة أول منتج إلى متجرك.</p></div>` : rows}`;
+}
+
+function tabOrders(){
+  if(S.orders.length === 0){ return `<div class="empty"><div class="ic">🛒</div><h3>لا توجد طلبات</h3><p>ستظهر هنا طلبات الزبائن.</p></div>`; }
+  return S.orders.map(o => `
+    <div class="list-row" style="align-items:flex-start;flex-direction:column;gap:8px">
+      <div style="display:flex;gap:9px;width:100%;align-items:center;flex-wrap:wrap">
+        <span class="tag ${ST[o.status][1]}">${ST[o.status][0]}</span>
+        <strong style="flex:1">${esc(o.name)}</strong>
+        <span class="tag">${money(o.total)}</span>
+      </div>
+      <small>📞 ${esc(o.phone)} • 🕒 ${new Date(o.at || Date.now()).toLocaleString('ar-SY')}</small>
+      <small>📦 ${o.items.map(i => esc(i.name) + ' ×' + i.qty).join(' ، ')}</small>
+      ${o.notes ? `<small>📝 ${esc(o.notes)}</small>` : ''}
+      ${session.canOrders ? `<div class="row2">${Object.keys(ST).map(k => `<button class="icon-btn" style="${k===o.status?'opacity:.45;cursor:default':''}" ${k===o.status ? 'disabled' : ''} onclick="setStatus('${o.id}','${k}')">${ST[k][0]}</button>`).join('')}</div>` : ''}
+      <a class="wa" style="padding:7px 14px;font-size:12px" href="https://wa.me/${esc(String(o.phone).replace(/[^0-9]/g,''))}" target="_blank" rel="noopener">مراسلة الزبون</a>
+    </div>`).join('');
+}
+
+function setStatus(id, st){
+  const o = S.orders.find(x => x.id === id); if(!o) return;
+  o.status = st;
+  if(firebaseReady){
+    const ref = doc(db, 'orders', id);
+    updateDoc(ref, { status: st }).catch(()=>{});
+  }
+  render();
+}
+
+function tabAdmins(){
+  if(!session.canAdmins) return `<div class="empty"><h3>لا تملك صلاحية</h3></div>`;
+  return `${S.admins.map(a => `
+      <div class="list-row">
+        <div class="grow">
+          <strong>${esc(a.name || a.email)}</strong>
+          <small>${esc(a.email || '')}</small>
+          <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap">
+            <span class="tag ${a.role==='owner'?'gold':''}">${a.role==='owner'?'المالك':'مسؤول'}</span>
+            ${a.canAdd?'<span class="tag green">إضافة منتجات</span>':''}
+            ${a.canDelete?'<span class="tag green">حذف منتجات</span>':''}
+            ${a.canOrders?'<span class="tag green">إدارة الطلبات</span>':''}
+            ${a.canAdmins?'<span class="tag gold">إدارة المسؤولين</span>':''}
+          </div>
+        </div>
+        ${a.role === 'owner' ? '<span class="tag">أساسي</span>' : `<div class="row2"><button class="icon-btn danger" onclick="deleteAdmin('${a.uid || a.id}')">🗑</button></div>`}
+      </div>`).join('')}
+    <p class="hint">💡 لإضافة مسؤول جديد: أنشئ حساباً جديداً في Firebase Authentication، ثم أضف مستنداً جديداً داخل collection admins باستخدام uid الخاص بالحساب.</p>`;
+}
+
+async function deleteAdmin(uidToDelete){
+  if(!confirm('هل تريد حذف هذا المسؤول؟')) return;
+  if(firebaseReady){
+    await deleteDoc(doc(db, 'admins', uidToDelete));
+  }
+  S.admins = S.admins.filter(a => (a.uid || a.id) !== uidToDelete);
+  render();
+  toast('تم حذف المسؤول');
+}
+
+function tabSettings(){
+  if(session.role !== 'owner') return `<div class="empty"><h3>الإعدادات متاحة للمالك فقط</h3></div>`;
+  const f = (k,l,phh) => `<div class="field"><label>${l}</label><input type="text" value="${esc(S.settings[k])}" placeholder="${phh}" oninput="setSetting('${k}',this.value)"></div>`;
+  return `<div class="panel" style="max-width:560px"><h3>⚙️ إعدادات المتجر</h3>${f('storeName','اسم المتجر','متجر النصر')}${f('address','عنوان المتجر','ضاحية المجد جانب جامع')}${f('whatsapp','رقم واتساب (بدون +)','963999999999')}${f('shamcashNumber','رقم شام كاش','0999999999')}${f('shamcashName','اسم حساب شام كاش','متجر النصر')}<p class="hint">💡 يتم الحفظ تلقائياً مع كل تعديل.</p></div>`;
+}
+
+function setSetting(k,v){
+  S.settings[k] = v;
+  if(firebaseReady){
+    setDoc(doc(db, 'settings', 'store'), S.settings, { merge: true }).catch(()=>{});
+  }
+  saveLocal();
+}
+
+function closeModal(){ document.getElementById('modal-root').innerHTML = ''; editing = null; formImg = ''; }
+
+function openProduct(id){
+  editing = id || null;
+  const p = id ? S.products.find(x => x.id === id) : null;
+  formImg = p ? (p.img || '') : '';
+  imgTabUpload = !formImg || formImg.startsWith('data:');
+  document.getElementById('modal-root').innerHTML = `<div class="overlay" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h3>${p ? '✏️ تعديل المنتج' : '＋ إضافة منتج جديد'}</h3><button class="close" onclick="closeModal()">✕</button></div><div class="modal-body"><div class="field"><label>اسم المنتج *</label><input id="pName" type="text" value="${esc(p?p.name:'')}" placeholder="مثال: فستان صيفي"></div><div class="field"><label>السعر (ل.س) *</label><input id="pPrice" type="number" inputmode="decimal" value="${p?p.price:''}" placeholder="50000"></div><div class="field"><label>الوصف</label><textarea id="pDesc" placeholder="وصف قصير للمنتج">${esc(p?p.desc:'')}</textarea></div><div class="field"><label>الفئة</label><select id="pCat">${CATS.filter(c=>c.v!=='all').map(c => `<option value="${c.v}" ${p && p.cat===c.v ? 'selected':''}>${c.i} ${c.l}</option>`).join('')}</select></div><div class="field"><label>صورة المنتج</label><div class="imgtabs"><button class="imgtab ${imgTabUpload?'on':''}" onclick="switchImgTab(true)">📁 رفع من الجهاز</button><button class="imgtab ${!imgTabUpload?'on':''}" onclick="switchImgTab(false)">🔗 رابط صورة</button></div><div id="imgBox">${imgBoxHTML()}</div></div><div class="field"><label>الحالة</label><div class="checks"><label><input type="checkbox" id="pStock" ${!p || p.inStock ? 'checked':''}> متوفر في المتجر</label></div></div><button class="gold full" onclick="saveProduct()">💾 حفظ المنتج</button><p class="hint">💡 تُضغط الصور تلقائياً (بحد أقصى 900 بكسل) لتوفير مساحة التخزين.</p></div></div></div>`;
+}
+
+function switchImgTab(upload){ imgTabUpload = upload; openProductRefresh(); }
+function openProductRefresh(){ const box = document.getElementById('imgBox'); if(!box) return; box.innerHTML = imgBoxHTML(); document.querySelectorAll('.imgtab').forEach((b,i) => b.classList.toggle('on', i === (imgTabUpload ? 0 : 1))); }
+function imgBoxHTML(){ if(formImg){ return `<div class="preview"><img src="${esc(formImg)}" alt="معاينة"><div class="acts">${imgTabUpload ? `<button onclick="pickFile()">🔄 تغيير</button>` : ''}<button class="del" onclick="clearImg()">🗑 حذف</button></div></div>`; } if(imgTabUpload){ return `<div class="drop" id="dropZone" onclick="pickFile()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)"><div class="big">📤</div><p><b>اضغط لاختيار صورة</b> أو اسحبها وأفلتها هنا</p><p style="margin-top:4px">PNG • JPG • WEBP — حتى 5 ميغابايت</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="onFile(event)">`; } return `<input type="text" id="imgUrl" placeholder="https://example.com/image.jpg" oninput="setUrlImg(this.value)" value="">`; }
+function pickFile(){ const f = document.getElementById('fileInput'); if(f) f.click(); }
+function dragOver(e){ e.preventDefault(); const z = document.getElementById('dropZone'); if(z) z.classList.add('over'); }
+function dragLeave(e){ e.preventDefault(); const z = document.getElementById('dropZone'); if(z) z.classList.remove('over'); }
+function dropFile(e){ e.preventDefault(); dragLeave(e); const f = e.dataTransfer.files && e.dataTransfer.files[0]; if(f) readImage(f); }
+function onFile(e){ const f = e.target.files && e.target.files[0]; if(f) readImage(f); }
+
+function readImage(file){
+  if(!file.type.startsWith('image/')){ alert('يرجى اختيار ملف صورة'); return; }
+  if(file.size > 5*1024*1024){ alert('حجم الصورة كبير جداً (الحد 5 ميغابايت)'); return; }
+  const r = new FileReader();
+  r.onload = () => compress(r.result, data => { formImg = data; openProductRefresh(); });
+  r.readAsDataURL(file);
+}
+
+function compress(src, cb){
+  const im = new Image();
+  im.onload = () => {
+    const MAX = 900; let w = im.width, h = im.height;
+    if(w > h && w > MAX){ h = Math.round(h*MAX/w); w = MAX; }
+    else if(h >= w && h > MAX){ w = Math.round(w*MAX/h); h = MAX; }
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(im, 0, 0, w, h);
+    try { cb(c.toDataURL('image/jpeg', 0.82)); } catch(e){ cb(src); }
+  };
+  im.onerror = () => cb(src);
+  im.src = src;
+}
+
+function setUrlImg(v){ formImg = v.trim(); }
+function clearImg(){ formImg = ''; openProductRefresh(); }
+
+async function saveProduct(){
+  const name = (document.getElementById('pName').value || '').trim();
+  const price = parseFloat(document.getElementById('pPrice').value || '0');
+  const desc = (document.getElementById('pDesc').value || '').trim();
+  const catValue = document.getElementById('pCat').value;
+  const stock = document.getElementById('pStock').checked;
+  if(!name){ alert('يرجى إدخال اسم المنتج'); return; }
+  if(!(price > 0)){ alert('يرجى إدخال سعر صحيح'); return; }
+
+  let img = formImg || '';
+
+  if (img && img.startsWith('data:')) {
+    try {
+      const file = await dataURLToFile(img, `product-${Date.now()}.jpg`);
+      const refFile = ref(storage, `products/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g,'-')}`);
+      await uploadBytes(refFile, file);
+      img = await getDownloadURL(refFile);
+    } catch (e) { console.error(e); }
+  }
+
+  const data = { name, price, desc, cat: catValue, img, inStock: stock, updatedAt: new Date().toISOString() };
+
+  if(editing){
+    const p = S.products.find(x => x.id === editing);
+    if(p) Object.assign(p, data);
+    if(firebaseReady){
+      const refDoc = doc(db, 'products', editing);
+      await updateDoc(refDoc, data).catch(()=>{});
+    }
+  } else {
+    const product = { id: uid('p'), ...data, createdAt: new Date().toISOString(), by: session?.name || 'admin' };
+    S.products.unshift(product);
+    if(firebaseReady){
+      await addDoc(collection(db, 'products'), { ...product, id: product.id });
+    }
+  }
+
+  saveLocal(); closeModal(); render(); toast(editing ? 'تم تعديل المنتج ✓' : 'تمت إضافة المنتج ✓');
+}
+
+function dataURLToFile(dataurl, filename){
+  return new Promise((resolve, reject) => {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length; const u8arr = new Uint8Array(n);
+    while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+    resolve(new File([u8arr], filename, { type: mime }));
+  });
+}
+
+async function delProduct(id){
+  if(!confirm('هل تريد حذف هذا المنتج؟')) return;
+  S.products = S.products.filter(p => p.id !== id);
+  if(firebaseReady){
+    await deleteDoc(doc(db, 'products', id)).catch(()=>{});
+  }
+  saveLocal(); render(); toast('تم حذف المنتج');
+}
+
+function footer(){ return `<footer><b>${esc(S.settings.storeName)}</b> — 📍 ${esc(S.settings.address)}<br><span style="font-size:11.5px">جميع الحقوق محفوظة © ${new Date().getFullYear()}</span></footer>`; }
+function fab(){ return `<a class="fab" href="https://wa.me/${esc(S.settings.whatsapp)}" target="_blank" rel="noopener" aria-label="واتساب"><svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>`; }
+
+function applyLocalData(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){
+      const d = JSON.parse(raw);
+      S = { ...S, ...d, settings: { ...S.settings, ...(d.settings || {}) }, cart: d.cart || [] };
+    }
+  }catch(e){}
+}
+
+async function initFirebaseSync(){
+  if(!firebaseConfig || firebaseConfig.apiKey.includes('YOUR_')){
+    console.warn('Firebase config is still placeholder. Edit firebaseConfig in index.html before using cloud mode.');
+    applyLocalData();
+    render();
+    return;
+  }
+
+  firebaseReady = true;
+  onAuthStateChanged(auth, async (user) => {
+    if(!user){ session = null; render(); return; }
+    const userDoc = await getDoc(doc(db, 'admins', user.uid));
+    if(!userDoc.exists()){
+      session = null;
+      render();
+      alert('هذا الحساب ليس مسؤولاً في المتجر');
+      await signOut(auth);
+      return;
+    }
+    const admin = userDoc.data();
+    session = { uid: user.uid, email: user.email, name: admin.name || user.email, ...admin };
+    render();
+  });
+
+  onSnapshot(collection(db, 'products'), (snapshot) => {
+    S.products = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+    render();
+  });
+
+  onSnapshot(collection(db, 'orders'), (snapshot) => {
+    S.orders = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data(), at: docSnap.data().at || new Date().toISOString() }));
+    render();
+  });
+
+  onSnapshot(doc(db, 'settings', 'store'), (snap) => {
+    if(snap.exists()){
+      S.settings = { ...defaultSettings, ...snap.data() };
+      render();
+    }
+  }, () => {});
+
+  onSnapshot(collection(db, 'admins'), (snapshot) => {
+    S.admins = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+    render();
+  });
+
+  try { 
+    const settingsRef = doc(db, 'settings', 'store');
+    const settingsSnap = await getDoc(settingsRef);
+    if(!settingsSnap.exists()) {
+      await setDoc(settingsRef, defaultSettings, { merge: true });
+    }
+  } catch (err) { console.error(err); }
+
+  applyLocalData();
+  render();
+}
+
+window.go = function(v){ view = v; render(); window.scrollTo({top:0,behavior:'instant'}); };
+window.openAdmin = openAdmin;
+window.doLogin = doLogin;
+window.logout = logout;
+window.setTab = setTab;
+window.openProduct = openProduct;
+window.saveProduct = saveProduct;
+window.delProduct = delProduct;
+window.setStatus = setStatus;
+window.deleteAdmin = deleteAdmin;
+window.setSetting = setSetting;
+window.saveAdmin = function(){};
+window.closeModal = closeModal;
+window.switchImgTab = switchImgTab;
+window.pickFile = pickFile;
+window.dragOver = dragOver;
+window.dragLeave = dragLeave;
+window.dropFile = dropFile;
+window.onFile = onFile;
+window.readImage = readImage;
+window.setUrlImg = setUrlImg;
+window.clearImg = clearImg;
+window.onSearch = onSearch;
+window.setCat = setCat;
+window.resetFilters = resetFilters;
+window.addCart = addCart;
+window.setQty = setQty;
+window.delCart = delCart;
+window.sendOrder = sendOrder;
+
+applyLocalData();
+render();
+initFirebaseSync();
+</script>
+</body>
+</html>
